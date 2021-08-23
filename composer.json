@@ -18,13 +18,13 @@
     },
     "autoload": {
         "psr-4": {
-            "MyComponent\\": "src/"
+            "Keboola\\ExasolTransformation\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MyComponent\\Tests\\": "tests/phpunit/",
-            "MyComponent\\FunctionalTests\\": "tests/functional/"
+            "Keboola\\ExasolTransformation\\Tests\\": "tests/phpunit/",
+            "Keboola\\ExasolTransformation\\FunctionalTests\\": "tests/functional/"
         }
     },
     "scripts": {
