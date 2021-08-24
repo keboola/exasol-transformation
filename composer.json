@@ -4,6 +4,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "jdorn/sql-formatter": "^1.2",
+        "keboola/common-exceptions": "^1.2",
         "keboola/php-component": "^8.1",
         "keboola/table-backend-utils": "^0.15.0"
     },
