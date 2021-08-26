@@ -17,6 +17,9 @@ trait CreateConnectionTrait
             (string) getenv('EXASOL_PASSWORD')
         );
 
+        $connection->executeQuery(
+            sprintf('CREATE SCHEMA IF NOT EXISTS "%s"', (string) getenv('EXASOL_SCHEMA'))
+        );
         $connection->executeQuery(sprintf('OPEN SCHEMA "%s"', (string) getenv('EXASOL_SCHEMA')));
 
         return $connection;
