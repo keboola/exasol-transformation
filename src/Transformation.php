@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Keboola\ExasolTransformation;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Keboola\Component\UserException;
 use Keboola\ExasolTransformation\Config\Block;
 use Keboola\ExasolTransformation\Config\Code;
@@ -72,6 +73,11 @@ class Transformation
         try {
             $this->connection->executeQuery($sql);
         } catch (Throwable $exception) {
+            // Unwrap to get better error message
+            if ($exception instanceof Exception) {
+                $exception = $exception->getPrevious() ?? $exception;
+            }
+
             $message = sprintf(
                 'Query "%s" from block "%s" and code "%s" failed: "%s"',
                 $this->queryExcerpt($sqlToLog),
