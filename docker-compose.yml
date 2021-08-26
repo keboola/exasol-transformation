@@ -7,5 +7,7 @@ services:
       - ./data:/data
     environment:
       - EXASOL_HOST
+      - EXASOL_PORT
       - EXASOL_USERNAME
       - EXASOL_PASSWORD
+      - EXASOL_SCHEMA

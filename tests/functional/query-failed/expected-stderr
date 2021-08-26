@@ -1,0 +1,1 @@
+Query "INSERT INTO "not_found" VALUES (1, 2)" from block "Block 1" and code "Code 1" failed: "SQLSTATE[42000]: Syntax error or access violation: 0 [EXASOL][EXASolution driver]object "not_found" not found [line 1, column 13]%s

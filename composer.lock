@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87bf29f6c3717d6d3364eb6d5ff2fff6",
+    "content-hash": "b454b9410629fef69b87fb401035854a",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -669,16 +669,16 @@
         },
         {
             "name": "keboola/table-backend-utils",
-            "version": "v0.15.0",
+            "version": "v0.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/keboola/php-table-backend-utils.git",
-                "reference": "a561b769c31ce5b2376f23e15c25151e225635ba"
+                "reference": "c677bd3960d07b5a269c3db91b559ece6a828e2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/keboola/php-table-backend-utils/zipball/a561b769c31ce5b2376f23e15c25151e225635ba",
-                "reference": "a561b769c31ce5b2376f23e15c25151e225635ba",
+                "url": "https://api.github.com/repos/keboola/php-table-backend-utils/zipball/c677bd3960d07b5a269c3db91b559ece6a828e2a",
+                "reference": "c677bd3960d07b5a269c3db91b559ece6a828e2a",
                 "shasum": ""
             },
             "require": {
@@ -709,9 +709,9 @@
             "description": "Package allows to import files to Snowflake from multiple cloud storages",
             "support": {
                 "issues": "https://github.com/keboola/php-table-backend-utils/issues",
-                "source": "https://github.com/keboola/php-table-backend-utils/tree/v0.15.0"
+                "source": "https://github.com/keboola/php-table-backend-utils/tree/v0.15.1"
             },
-            "time": "2021-08-12T09:33:27+00:00"
+            "time": "2021-08-25T07:49:40+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1706,6 +1706,56 @@
                 "source": "https://github.com/keboola/phpcs-standard/tree/13.0.0"
             },
             "time": "2021-07-25T10:54:36+00:00"
+        },
+        {
+            "name": "keboola/csv",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/keboola/php-csv.git",
+                "reference": "eb5a835a855f1bf03ddaa330e7b22fc5fb6042d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/keboola/php-csv/zipball/eb5a835a855f1bf03ddaa330e7b22fc5fb6042d7",
+                "reference": "eb5a835a855f1bf03ddaa330e7b22fc5fb6042d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Keboola\\Csv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Keboola",
+                    "email": "devel@keboola.com"
+                }
+            ],
+            "description": "Keboola CSV reader and writer",
+            "homepage": "http://keboola.com",
+            "keywords": [
+                "csv",
+                "rfc4180"
+            ],
+            "support": {
+                "issues": "https://github.com/keboola/php-csv/issues",
+                "source": "https://github.com/keboola/php-csv/tree/master"
+            },
+            "time": "2020-07-28T09:27:05+00:00"
         },
         {
             "name": "keboola/datadir-tests",
