@@ -10,7 +10,6 @@ use Keboola\Component\Manifest\ManifestManager\Options\OutTableManifestOptions;
 use Keboola\Component\UserException;
 use Keboola\Datatype\Definition\Exasol as ExasolColumnType;
 use Keboola\TableBackendUtils\Column\ColumnInterface;
-use Keboola\TableBackendUtils\ReflectionException;
 use Keboola\TableBackendUtils\Table\Exasol\ExasolTableReflection;
 
 class ManifestWriter
@@ -50,9 +49,8 @@ class ManifestWriter
     private function processTable(string $schemaName, string $tableName): bool
     {
         $tableReflection = new ExasolTableReflection($this->connection, $schemaName, $tableName);
-        try {
-            $columns = $tableReflection->getColumnsDefinitions();
-        } catch (ReflectionException $e) {
+        $columns = $tableReflection->getColumnsDefinitions();
+        if ($columns->count() === 0) {
             // Table is missing
             return false;
         }
