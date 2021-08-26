@@ -16,6 +16,9 @@ class Component extends BaseComponent
 
         $transformation = new Transformation($connection, $this->getLogger());
         $transformation->processBlocks($this->getConfig()->getBlocks());
+
+        $manifestBuilder = new ManifestWriter($connection, $this->getManifestManager());
+        $manifestBuilder->process($this->getConfig()->getExpectedOutputTables());
     }
 
     public function getConfig(): Config
