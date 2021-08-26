@@ -19,7 +19,7 @@ class Config extends BaseConfig
         }
     }
 
-    public function getDatabasePort(): string
+    public function getDatabasePort(): int
     {
         try {
             return $this->getValue(['authorization', 'workspace', 'port']);
