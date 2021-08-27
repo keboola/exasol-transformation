@@ -23,6 +23,15 @@ EXASOL_PASSWORD=
 EXASOL_SCHEMA=
 ```
 
+To use a local instance of Exasol via docker-compose, enter:
+```env
+EXASOL_HOST=exasol
+EXASOL_PORT=8563
+EXASOL_USERNAME=sys
+EXASOL_PASSWORD=exasol
+EXASOL_SCHEMA=testSchema
+```
+
 Run for wait on Exasol DB
 ```sh
 docker-compose run --rm wait
