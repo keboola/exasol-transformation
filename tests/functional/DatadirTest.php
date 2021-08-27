@@ -14,6 +14,8 @@ use Keboola\ExasolTransformation\TestTraits\GetTableColumnsTrait;
 use Keboola\ExasolTransformation\TestTraits\GetTablesTrait;
 use Keboola\TableBackendUtils\Table\Exasol\ExasolTableQueryBuilder;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
+use Throwable;
 
 class DatadirTest extends AbstractDatadirTestCase
 {
@@ -50,6 +52,12 @@ class DatadirTest extends AbstractDatadirTestCase
         $this->dumpAllTables($tempDatadir->getTmpFolder());
 
         $this->assertMatchesSpecification($specification, $process, $tempDatadir->getTmpFolder());
+    }
+
+    public function assertDirectoryContentsSame(string $expected, string $actual): void
+    {
+        $this->prettifyAllManifests($actual);
+        parent::assertDirectoryContentsSame($expected, $actual);
     }
 
     protected function dropAllTables(): void
@@ -128,5 +136,29 @@ class DatadirTest extends AbstractDatadirTestCase
         foreach ($data as $row) {
             $csv->writeRow($row);
         }
+    }
+
+    protected function prettifyAllManifests(string $actual): void
+    {
+        foreach ($this->findManifests($actual . '/tables') as $file) {
+            $this->prettifyJsonFile((string) $file->getRealPath());
+        }
+    }
+
+    protected function prettifyJsonFile(string $path): void
+    {
+        $json = (string) file_get_contents($path);
+        try {
+            file_put_contents($path, (string) json_encode(json_decode($json), JSON_PRETTY_PRINT));
+        } catch (Throwable $e) {
+            // If a problem occurs, preserve the original contents
+            file_put_contents($path, $json);
+        }
+    }
+
+    protected function findManifests(string $dir): Finder
+    {
+        $finder = new Finder();
+        return $finder->files()->in($dir)->name(['~.*\.manifest~']);
     }
 }
