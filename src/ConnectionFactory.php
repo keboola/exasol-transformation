@@ -5,35 +5,42 @@ declare(strict_types=1);
 namespace Keboola\ExasolTransformation;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\OCI8\Driver;
+use Doctrine\DBAL\DriverManager;
+use Keboola\Component\UserException;
 use Keboola\ExasolTransformation\Config\Config;
-use Keboola\TableBackendUtils\Connection\Exasol\ExasolConnection;
-use Keboola\TableBackendUtils\Escaping\Exasol\ExasolQuote;
+use PDO;
+use PDOException;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 class ConnectionFactory
 {
     public static function createFromConfig(Config $config, LoggerInterface $logger): Connection
     {
-        $logger->info(sprintf('Connection to "%s".', $config->getDatabaseHost()));
-        $connection = ExasolConnection::getConnection(
-            sprintf('%s:%s', $config->getDatabaseHost(), $config->getDatabasePort()),
-            $config->getDatabaseUsername(),
-            $config->getDatabasePassword()
-        );
+        try {
+            $dbh = new PDO(
+                sprintf(
+                    'odbc:Driver=exasol;ENCODING=UTF-8;EXAHOST=%s:%s;EXASCHEMA=%s;QUERYTIMEOUT=%d',
+                    $config->getDatabaseHost(),
+                    $config->getDatabasePort(),
+                    $config->getDatabaseSchema(),
+                    $config->getQueryTimeout()
+                ),
+                $config->getDatabaseUsername(),
+                $config->getDatabasePassword()
+            );
+        } catch (PDOException $e) {
+            throw new UserException('Connection failed: ' . $e->getMessage(), (int) $e->getCode(), $e);
+        }
 
-        $connection->connect();
-
-        $logger->info(sprintf('Use schema "%s".', $config->getDatabaseSchema()));
-        $connection->executeStatement(sprintf(
-            'OPEN SCHEMA %s',
-            ExasolQuote::quoteSingleIdentifier($config->getDatabaseSchema())
-        ));
-
-        $connection->executeQuery(sprintf(
-            'ALTER SESSION SET QUERY_TIMEOUT=%d',
-            $config->getQueryTimeout()
-        ));
-
-        return $connection;
+        try {
+            return DriverManager::getConnection([
+                'pdo' => $dbh,
+                'driverClass' => Driver::class,
+            ]);
+        } catch (Throwable $e) {
+            throw new UserException($e->getMessage(), (int) $e->getCode(), $e);
+        }
     }
 }
