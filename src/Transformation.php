@@ -63,7 +63,8 @@ class Transformation
         }
 
         // Skip select
-        if (strtoupper(substr($sql, 0, 6)) === 'SELECT' && !strpos(strtoupper($sql), 'INTO')) {
+        if (strtoupper(substr($sql, 0, 6)) === 'SELECT' &&
+            !strpos(strtoupper($sql), 'INTO TABLE')) {
             $this->logger->info(sprintf('Ignoring select query "%s".', $sqlToLog));
             return;
         }
