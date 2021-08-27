@@ -12,7 +12,7 @@ class Component extends BaseComponent
 {
     protected function run(): void
     {
-        $connection = ConnectionFactory::createFromConfig($this->getConfig(), $this->getLogger());
+        $connection = ConnectionFactory::createFromConfig($this->getConfig());
 
         $transformation = new Transformation($connection, $this->getLogger());
         $transformation->processBlocks($this->getConfig()->getBlocks());

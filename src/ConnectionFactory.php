@@ -16,7 +16,7 @@ use Throwable;
 
 class ConnectionFactory
 {
-    public static function createFromConfig(Config $config, LoggerInterface $logger): Connection
+    public static function createFromConfig(Config $config): Connection
     {
         try {
             $dbh = new PDO(
