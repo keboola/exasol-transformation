@@ -29,6 +29,11 @@ class ConnectionFactory
             ExasolQuote::quoteSingleIdentifier($config->getDatabaseSchema())
         ));
 
+        $connection->executeQuery(sprintf(
+            'ALTER SESSION SET QUERY_TIMEOUT=%d',
+            $config->getQueryTimeout()
+        ));
+
         return $connection;
     }
 }

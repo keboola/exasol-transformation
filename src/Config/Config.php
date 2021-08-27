@@ -62,4 +62,9 @@ class Config extends BaseConfig
             $this->getValue(['parameters', 'blocks'])
         );
     }
+
+    public function getQueryTimeout(): int
+    {
+        return $this->getValue(['parameters', 'query_timeout']);
+    }
 }

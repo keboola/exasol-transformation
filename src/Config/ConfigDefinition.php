@@ -51,6 +51,7 @@ class ConfigDefinition extends BaseConfigDefinition
         /** @noinspection NullPointerExceptionInspection */
         $parametersNode
             ->children()
+                ->integerNode('query_timeout')->defaultValue(7200)->end()
                 ->arrayNode('blocks')
                     ->isRequired()
                     ->arrayPrototype()

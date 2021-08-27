@@ -33,11 +33,49 @@ class ConfigTest extends TestCase
         new Config($configArray, new ConfigDefinition());
     }
 
+
+
+    public function testQueryTimeoutDefaultValue(): void
+    {
+        $config = new Config([
+            'authorization' => $this->getAuthorizationNode(),
+            'parameters' => [
+                'blocks' => [
+                    [
+                        'name' => 'name of the blocks',
+                        'codes' => [],
+                    ],
+                ],
+            ],
+        ], new ConfigDefinition());
+
+        Assert::assertSame(7200, $config->getQueryTimeout());
+    }
+
+    public function testQueryTimeoutFromParams(): void
+    {
+        $config = new Config([
+            'authorization' => $this->getAuthorizationNode(),
+            'parameters' => [
+                'query_timeout' => 14400,
+                'blocks' => [
+                    [
+                        'name' => 'name of the blocks',
+                        'codes' => [],
+                    ],
+                ],
+            ],
+        ], new ConfigDefinition());
+
+        Assert::assertSame(14400, $config->getQueryTimeout());
+    }
+
     public function validConfigDataProvider(): Generator
     {
         yield 'minimal-valid-config' => [
             [
                 'parameters' => [
+                    'query_timeout' => 7200,
                     'blocks' => [
                         [
                             'name' => 'name of the block',
@@ -52,15 +90,7 @@ class ConfigTest extends TestCase
                         ],
                     ],
                 ],
-                'authorization' => [
-                    'workspace' => [
-                        'host' => 'host',
-                        'port' => 12345,
-                        'user' => 'user',
-                        'password' => 'secret password',
-                        'schema' => 'db schema',
-                    ],
-                ],
+                'authorization' => $this->getAuthorizationNode(),
             ],
         ];
     }
@@ -277,6 +307,19 @@ class ConfigTest extends TestCase
                 ],
             ],
             'The child config "schema" under "root.authorization.workspace" must be configured.',
+        ];
+    }
+
+    private function getAUthorizationNode(): array
+    {
+        return [
+            'workspace' => [
+                'host' => 'host',
+                'port' => 12345,
+                'user' => 'user',
+                'password' => 'secret password',
+                'schema' => 'db schema',
+            ],
         ];
     }
 }
