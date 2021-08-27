@@ -2,7 +2,7 @@ version: '3'
 services:
 
   app: &app
-    image: ${APP_IMAGE}
+    image: keboola-exasol-transformation
     build: .
     environment:
       - EXASOL_HOST
