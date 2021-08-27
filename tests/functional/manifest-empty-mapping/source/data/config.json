@@ -1,0 +1,33 @@
+{
+  "authorization": {
+    "workspace": {
+      "host": "%env(string:EXASOL_HOST)%",
+      "port": "%env(int:EXASOL_PORT)%",
+      "user": "%env(string:EXASOL_USERNAME)%",
+      "password": "%env(string:EXASOL_PASSWORD)%",
+      "schema": "%env(string:EXASOL_SCHEMA)%"
+    }
+  },
+  "storage": {
+    "output": {
+      "tables": []
+    }
+  },
+  "parameters": {
+    "blocks": [
+      {
+        "name": "Block 1",
+        "codes": [
+          {
+            "name": "Code 1",
+            "script": [
+              "CREATE TABLE \"new-table\" (\"product_name\" VARCHAR(100), \"price\" FLOAT)",
+              "INSERT INTO \"new-table\" (\"product_name\", \"price\") VALUES ('row1', 12.10)",
+              "INSERT INTO \"new-table\" (\"product_name\", \"price\") VALUES ('row2', 56.20)"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

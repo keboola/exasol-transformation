@@ -1,0 +1,40 @@
+[
+    {
+        "COLUMN_TABLE": "temp",
+        "COLUMN_OBJECT_TYPE": "TABLE",
+        "COLUMN_NAME": "product_name",
+        "COLUMN_TYPE": "VARCHAR(100) UTF8",
+        "COLUMN_TYPE_ID": "12",
+        "COLUMN_MAXSIZE": "100",
+        "COLUMN_NUM_PREC": null,
+        "COLUMN_NUM_SCALE": null,
+        "COLUMN_ORDINAL_POSITION": "1",
+        "COLUMN_IS_VIRTUAL": "0",
+        "COLUMN_IS_NULLABLE": "1",
+        "COLUMN_IS_DISTRIBUTION_KEY": "0",
+        "COLUMN_PARTITION_KEY_ORDINAL_POSITION": null,
+        "COLUMN_DEFAULT": null,
+        "COLUMN_IDENTITY": null,
+        "STATUS": null,
+        "COLUMN_COMMENT": null
+    },
+    {
+        "COLUMN_TABLE": "temp",
+        "COLUMN_OBJECT_TYPE": "TABLE",
+        "COLUMN_NAME": "price",
+        "COLUMN_TYPE": "DOUBLE",
+        "COLUMN_TYPE_ID": "8",
+        "COLUMN_MAXSIZE": "64",
+        "COLUMN_NUM_PREC": null,
+        "COLUMN_NUM_SCALE": null,
+        "COLUMN_ORDINAL_POSITION": "2",
+        "COLUMN_IS_VIRTUAL": "0",
+        "COLUMN_IS_NULLABLE": "1",
+        "COLUMN_IS_DISTRIBUTION_KEY": "0",
+        "COLUMN_PARTITION_KEY_ORDINAL_POSITION": null,
+        "COLUMN_DEFAULT": null,
+        "COLUMN_IDENTITY": null,
+        "STATUS": null,
+        "COLUMN_COMMENT": null
+    }
+]
