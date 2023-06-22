@@ -4,6 +4,7 @@ services:
   app: &app
     image: keboola-exasol-transformation
     build: .
+    platform: linux/amd64
     environment:
       - EXASOL_HOST
       - EXASOL_PORT
@@ -21,9 +22,8 @@ services:
 
   exasol:
     image: exasol/docker-db:latest
+    platform: linux/amd64
     privileged: true
-    mem_limit: 1g
-    cpus: 1
 
   wait:
     image: waisbrot/wait

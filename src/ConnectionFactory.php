@@ -21,7 +21,7 @@ class ConnectionFactory
         try {
             $dbh = new PDO(
                 sprintf(
-                    'odbc:Driver=exasol;ENCODING=UTF-8;EXAHOST=%s:%s;EXASCHEMA=%s;QUERYTIMEOUT=%d',
+                    'odbc:Driver=exasol;EXAHOST=%s:%s;EXASCHEMA=%s;QUERYTIMEOUT=%d',
                     $config->getDatabaseHost(),
                     $config->getDatabasePort(),
                     $config->getDatabaseSchema(),
