@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Keboola\ExasolTransformation;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\OCI8\Driver;
 use Doctrine\DBAL\DriverManager;
 use Keboola\Component\UserException;
 use Keboola\ExasolTransformation\Config\Config;
-use PDO;
-use PDOException;
-use Psr\Log\LoggerInterface;
+use Keboola\TableBackendUtils\Connection\Exasol\ExasolConnectionFactory;
 use Throwable;
 
 class ConnectionFactory
@@ -19,28 +16,20 @@ class ConnectionFactory
     public static function createFromConfig(Config $config): Connection
     {
         try {
-            $dbh = new PDO(
-                sprintf(
-                    'odbc:Driver=exasol;EXAHOST=%s:%s;EXASCHEMA=%s;QUERYTIMEOUT=%d',
-                    $config->getDatabaseHost(),
-                    $config->getDatabasePort(),
-                    $config->getDatabaseSchema(),
-                    $config->getQueryTimeout()
-                ),
+            $connection = ExasolConnectionFactory::getConnection(
+                sprintf('%s:%s', $config->getDatabaseHost(), $config->getDatabasePort()),
                 $config->getDatabaseUsername(),
-                $config->getDatabasePassword()
+                $config->getDatabasePassword(),
+                null,
+                true
             );
-        } catch (PDOException $e) {
-            throw new UserException('Connection failed: ' . $e->getMessage(), (int) $e->getCode(), $e);
-        }
 
-        try {
-            return DriverManager::getConnection([
-                'pdo' => $dbh,
-                'driverClass' => Driver::class,
-            ]);
+            $connection->executeQuery(sprintf('OPEN SCHEMA "%s"', $config->getDatabaseSchema()));
+            $connection->executeQuery(sprintf('ALTER SESSION SET QUERY_TIMEOUT=%d;', $config->getQueryTimeout()));
+
+            return $connection;
         } catch (Throwable $e) {
-            throw new UserException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new UserException('Connection failed: ' . $e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }
