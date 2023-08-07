@@ -3,12 +3,13 @@
     "description": "MyComponent description",
     "license": "MIT",
     "require": {
+        "ext-odbc": "*",
         "php": "^7.4",
         "jdorn/sql-formatter": "^1.2",
         "keboola/common-exceptions": "^1.2",
         "keboola/php-component": "^8.1",
-        "keboola/php-datatypes": "^4.11",
-        "keboola/table-backend-utils": "^0.15.0"
+        "keboola/php-datatypes": "^5.0",
+        "keboola/table-backend-utils": "^1.0"
     },
     "require-dev": {
         "keboola/coding-standard": ">=7.0.2",
@@ -58,6 +59,9 @@
     },
     "config": {
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

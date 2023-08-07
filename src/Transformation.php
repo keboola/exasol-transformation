@@ -78,7 +78,6 @@ class Transformation
             if ($exception instanceof Exception) {
                 $exception = $exception->getPrevious() ?? $exception;
             }
-
             $message = sprintf(
                 'Query "%s" from block "%s" and code "%s" failed: "%s"',
                 $this->queryExcerpt($sqlToLog),
